@@ -102,5 +102,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Contact
 
-- **GitHub**: [Your GitHub Profile](https://github.com/tahmidraven)
-- **Email**: [Your Email](mailto:tahmidraven@gmail.com)
+- **GitHub**: [Tahmid Raven](https://github.com/tahmidraven)
+- **Email**: [Tahmid's Email](mailto:tahmidraven@gmail.com)
