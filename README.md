@@ -44,16 +44,19 @@ Make sure you have the following tools installed:
 
 1. **Clone the repository**:
 
-   ```bash
+```bash
    git clone https://github.com/your-username/budget_like_a_raven.git
    cd budget_like_a_raven
 
         flutter pub get
 
         flutter run
+```
 
-  ```
+
 ### File Structure
+
+
 ```
 /lib
     /pages
@@ -64,6 +67,8 @@ Make sure you have the following tools installed:
         - expense_list_page.dart # Page to view expense history
     - main.dart                  # Main entry point of the app
 ```
+
+
 ## Technologies Used
 
 - **Flutter**: Cross-platform mobile app development framework.
