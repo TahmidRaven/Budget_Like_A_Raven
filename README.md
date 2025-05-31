@@ -12,20 +12,25 @@
 - **Add and View Recent Transactions**: Easily add income or expense entries and view the latest ones.
 - **Clear All**: Reset all balances and entries for fresh tracking.
 
+## Documentations Followed
+
+```
+https://docs.flutter.dev/cookbook/persistence/reading-writing-files
+```
+
 ---
 
 ## Screenshots
 
 **Home Screen**:  
-![Home Screen](https://via.placeholder.com/600x400)  
+![screenshot](https://github.com/user-attachments/assets/a4f0ec84-5dc4-48ad-ada6-e0653ca77254)
+
 _Display of total income, total expenses, and remaining balance with navigation buttons._
 
 **Income List Page**:  
-![Income List](https://via.placeholder.com/600x400)  
 _List of recent income entries (e.g., salary, freelance)._
 
 **Expense List Page**:  
-![Expense List](https://via.placeholder.com/600x400)  
 _List of recent expense entries (e.g., rent, groceries)._
 
 ---
