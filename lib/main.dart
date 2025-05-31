@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Budget Like A Raven',
+      debugShowCheckedModeBanner: false,  // Disable the debug banner
       theme: ThemeData.dark().copyWith(
         appBarTheme: AppBarTheme(
           color: Color.fromARGB(255, 27, 27, 60), // Lavender AppBar color
