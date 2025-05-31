@@ -109,7 +109,7 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    '\$${remainingBalance.toStringAsFixed(2)}',
+                    '৳${remainingBalance.toStringAsFixed(2)}', // Change $ to ৳
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -137,7 +137,7 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                   child: ListTile(
                     title: Text(incomeEntries[index]['name']!),
-                    subtitle: Text('\$${incomeEntries[index]['amount']}'),
+                    subtitle: Text('৳${incomeEntries[index]['amount']}'), // Change $ to ৳
                   ),
                 );
               },
@@ -160,7 +160,7 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                   child: ListTile(
                     title: Text(expenseEntries[index]['name']!),
-                    subtitle: Text('\$${expenseEntries[index]['amount']}'),
+                    subtitle: Text('৳${expenseEntries[index]['amount']}'), // Change $ to ৳
                   ),
                 );
               },

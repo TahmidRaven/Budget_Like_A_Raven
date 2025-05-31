@@ -34,10 +34,14 @@ class _IncomePageState extends State<IncomePage> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
+            // Amount TextField with BDT symbol
             TextField(
               controller: _amountController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Amount"),
+              decoration: InputDecoration(
+                labelText: "Amount",
+                prefixText: "৳",  // Adding the BDT symbol as a prefix to the input field
+              ),
             ),
             SizedBox(height: 20),
             TextField(
