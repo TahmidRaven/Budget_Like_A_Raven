@@ -193,8 +193,9 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                 ),
               );
             },
+            shape: CircleBorder(),
             child: Icon(Icons.add),
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 17, 94, 19),
             tooltip: 'Add Income',
           ),
           SizedBox(height: 10),
@@ -207,8 +208,9 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                 ),
               );
             },
+            shape: CircleBorder(),
             child: Icon(Icons.remove),
-            backgroundColor: Colors.red,
+            backgroundColor: const Color.fromARGB(255, 152, 92, 3),
             tooltip: 'Add Expense',
           ),
         ],
