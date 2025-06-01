@@ -23,7 +23,7 @@ https://docs.flutter.dev/cookbook/persistence/reading-writing-files
 ## Screenshots
 
 **Home Screen**:  
-![screenshot](https://github.com/user-attachments/assets/a4f0ec84-5dc4-48ad-ada6-e0653ca77254)
+![image](https://github.com/user-attachments/assets/04d579d8-1de2-4232-84f6-93b59afd0a33)
 
 _Display of total income, total expenses, and remaining balance with navigation buttons._
 
