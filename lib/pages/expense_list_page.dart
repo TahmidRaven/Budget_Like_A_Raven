@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'expense.dart';  // Import Expense model
 
 class ExpenseListPage extends StatelessWidget {
-  final List<Map<String, String>> expenseEntries;
+  final List<Expense> expenseEntries;
 
   ExpenseListPage({required this.expenseEntries});
 
@@ -21,8 +22,8 @@ class ExpenseListPage extends StatelessWidget {
                   elevation: 4,
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                   child: ListTile(
-                    title: Text(expenseEntries[index]['name']!),
-                    subtitle: Text('\$${expenseEntries[index]['amount']}'),
+                    title: Text(expenseEntries[index].name),
+                    subtitle: Text('৳${expenseEntries[index].amount}'),
                   ),
                 );
               },

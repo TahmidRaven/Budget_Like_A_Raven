@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/budget_home.dart';  // Import the main budget home page
+import 'pages/budget_home.dart';  // Import the home page for the budget
 
 void main() {
   runApp(MyApp());

@@ -11,13 +11,13 @@ class ExpensePage extends StatefulWidget {
 
 class _ExpensePageState extends State<ExpensePage> {
   final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController(text: "Khoroch"); // Default name
+  final TextEditingController _nameController = TextEditingController(text: "Groceries");
 
   void _submitExpense() {
     double? amount = double.tryParse(_amountController.text);
     if (amount != null && amount > 0) {
-      widget.onExpenseAdded(amount, _nameController.text);
-      Navigator.pop(context); // Go back after adding expense
+      widget.onExpenseAdded(amount, _nameController.text); 
+      Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Please enter a valid expense amount.'),
@@ -34,18 +34,17 @@ class _ExpensePageState extends State<ExpensePage> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Amount TextField with BDT symbol
             TextField(
               controller: _amountController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: "Amount",
-                prefixText: "৳",  // Adding the BDT symbol as a prefix to the input field
+                prefixText: "৳",
               ),
             ),
             SizedBox(height: 20),
             TextField(
-              controller: _nameController, // Use controller to set the default name
+              controller: _nameController,
               decoration: InputDecoration(labelText: "Expense Name"),
             ),
             SizedBox(height: 20),

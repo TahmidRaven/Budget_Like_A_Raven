@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'income.dart';  // Import Income model
 
 class IncomeListPage extends StatelessWidget {
-  final List<Map<String, String>> incomeEntries;
+  final List<Income> incomeEntries;
 
   IncomeListPage({required this.incomeEntries});
 
@@ -21,8 +22,8 @@ class IncomeListPage extends StatelessWidget {
                   elevation: 4,
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                   child: ListTile(
-                    title: Text(incomeEntries[index]['name']!),
-                    subtitle: Text('\$${incomeEntries[index]['amount']}'),
+                    title: Text(incomeEntries[index].name),
+                    subtitle: Text('৳${incomeEntries[index].amount}'),
                   ),
                 );
               },

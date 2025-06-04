@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'income_page.dart';
-import 'expense_page.dart';
-import 'income_list_page.dart'; // Import Income List Page
-import 'expense_list_page.dart'; // Import Expense List Page
+import 'income.dart';  // Import Income model
+import 'expense.dart';  // Import Expense model
+import 'income_page.dart';  // Import IncomePage
+import 'expense_page.dart';  // Import ExpensePage
+import 'income_list_page.dart';  // Import IncomeListPage
+import 'expense_list_page.dart';  // Import ExpenseListPage
+import 'database_helper.dart';  // Import DatabaseHelper
 
 class BudgetHomePage extends StatefulWidget {
   @override
@@ -13,33 +16,48 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
   double totalIncome = 0.0;
   double totalExpenses = 0.0;
 
-  // Empty lists for income and expense entries
-  List<Map<String, String>> incomeEntries = [];
-  List<Map<String, String>> expenseEntries = [];
+  List<Income> incomeEntries = [];
+  List<Expense> expenseEntries = [];
 
-  // Function to update income and expenses
-  void updateIncome(double amount, String name) {
+  final DatabaseHelper dbHelper = DatabaseHelper.instance; // Database helper
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  // Load data from the database
+  Future<void> _loadData() async {
+    List<Income> incomes = await dbHelper.getIncomes();
+    List<Expense> expenses = await dbHelper.getExpenses();
+
     setState(() {
-      totalIncome += amount;
-      incomeEntries.insert(0, {'name': name, 'amount': amount.toString()});
+      incomeEntries = incomes;
+      expenseEntries = expenses;
+      totalIncome = incomeEntries.fold(0.0, (sum, entry) => sum + entry.amount);
+      totalExpenses = expenseEntries.fold(0.0, (sum, entry) => sum + entry.amount);
     });
   }
 
-  void updateExpenses(double amount, String name) {
-    setState(() {
-      totalExpenses += amount;
-      expenseEntries.insert(0, {'name': name, 'amount': amount.toString()});
-    });
+  // Insert new income
+  void addIncome(double amount, String name) async {
+    Income income = Income(id: 0, name: name, amount: amount);
+    await dbHelper.insertIncome(income);
+    _loadData();  // Reload data from the database after insertion
   }
 
-  // Function to clear all balances and entries
-  void clearAll() {
-    setState(() {
-      totalIncome = 0.0;
-      totalExpenses = 0.0;
-      incomeEntries.clear();
-      expenseEntries.clear();
-    });
+  // Insert new expense
+  void addExpense(double amount, String name) async {
+    Expense expense = Expense(id: 0, name: name, amount: amount);
+    await dbHelper.insertExpense(expense);
+    _loadData();  // Reload data from the database after insertion
+  }
+
+  // Clear all balances
+  void clearAll() async {
+    await dbHelper.clearAllData();  // Clear all data from the database
+    _loadData();  // Reload data from the database after clearing
   }
 
   @override
@@ -54,43 +72,6 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
       ),
       body: Column(
         children: [
-          // Top Navigation Bar
-          Container(
-            color: const Color.fromARGB(255, 13, 73, 136),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.home),
-                  onPressed: () {} // Home page functionality (if needed)
-                ),
-                IconButton(
-                  icon: Icon(Icons.money_off),
-                  onPressed: () {
-                    // Navigate to ExpenseListPage and pass the expenseEntries
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ExpenseListPage(expenseEntries: expenseEntries),
-                      ),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.account_balance_wallet),
-                  onPressed: () {
-                    // Navigate to IncomeListPage and pass the incomeEntries
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => IncomeListPage(incomeEntries: incomeEntries),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
           // Centered Balance in a Card
           Card(
             elevation: 8,
@@ -120,7 +101,7 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
               ),
             ),
           ),
-          // Recent Income Entries
+          // Recent Income Entries Section
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -136,14 +117,14 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                   elevation: 4,
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                   child: ListTile(
-                    title: Text(incomeEntries[index]['name']!),
-                    subtitle: Text('৳${incomeEntries[index]['amount']}'), // Change $ to ৳
+                    title: Text(incomeEntries[index].name),
+                    subtitle: Text('৳${incomeEntries[index].amount}'), // Change $ to ৳
                   ),
                 );
               },
             ),
           ),
-          // Recent Expense Entries
+          // Recent Expense Entries Section
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -159,14 +140,14 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
                   elevation: 4,
                   margin: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
                   child: ListTile(
-                    title: Text(expenseEntries[index]['name']!),
-                    subtitle: Text('৳${expenseEntries[index]['amount']}'), // Change $ to ৳
+                    title: Text(expenseEntries[index].name),
+                    subtitle: Text('৳${expenseEntries[index].amount}'), // Change $ to ৳
                   ),
                 );
               },
             ),
           ),
-          // Clear All Button
+          // Clear All Button to Reset Data
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
@@ -186,10 +167,11 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
+              // Add income logic
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => IncomePage(onIncomeAdded: updateIncome),
+                  builder: (context) => IncomePage(onIncomeAdded: addIncome),
                 ),
               );
             },
@@ -201,10 +183,11 @@ class _BudgetHomePageState extends State<BudgetHomePage> {
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
+              // Add expense logic
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ExpensePage(onExpenseAdded: updateExpenses),
+                  builder: (context) => ExpensePage(onExpenseAdded: addExpense),
                 ),
               );
             },
